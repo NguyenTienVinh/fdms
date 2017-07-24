@@ -8,7 +8,9 @@
     <data>
 
         <import type="android.view.View"/>
+
         <import type="com.framgia.fdms.screen.device.DeviceViewModel.Tab"/>
+
         <variable
             name="viewModel"
             type="com.framgia.fdms.screen.device.listdevice.ListDeviceViewModel"
@@ -21,17 +23,20 @@
         bind:refreshAble="@{viewModel.refresh}"
         bind:swipeRefreshListener="@{viewModel.onRefreshListener}"
         >
+
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 >
+
                 <LinearLayout
-                    android:id="@id/linear_layout"
+                    android:id="@+id/linear_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -39,39 +44,12 @@
                     android:visibility="@{viewModel.tab == Tab.TAB_MY_DEVICE ? View.GONE : View.VISIBLE}"
                     >
 
-                    <TextView
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_5"
-                        android:layout_marginEnd="@dimen/dp_10"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_filter_shape"
-                        android:drawableStart="@drawable/ic_arrow_drop_down_white_24px"
-                        android:ellipsize="end"
-                        android:gravity="center_vertical"
-                        android:lines="1"
-                        android:onClick="@{()-> viewModel.onChooseStatus()}"
-                        android:text="@={viewModel.status.name}"
-                        android:textSize="@dimen/sp_13"
-                        />
-
-                    <TextView
-                        android:layout_width="@dimen/dp_0"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_5"
-                        android:layout_marginEnd="@dimen/dp_5"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_filter_shape"
-                        android:drawableStart="@drawable/ic_arrow_drop_down_white_24px"
-                        android:ellipsize="end"
-                        android:gravity="center_vertical"
-                        android:lines="1"
-                        android:onClick="@{()-> viewModel.onChooseCategory()}"
-                        android:text="@={viewModel.category.name}"
-                        android:textSize="@dimen/sp_13"
-                        />
-
+                    <include
+                        android:id="@+id/layout_top_sheet"
+                        layout="@layout/top_sheet_search_content"
+                        bind:viewModel="@{viewModel}"/>
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -79,20 +57,22 @@
                     android:layout_weight="1"
                     android:orientation="vertical"
                     >
+
                     <include
                         layout="@layout/empty_state"
                         bind:image="@{@drawable/ic_no_report}"
                         bind:text="@{@string/msg_no_device}"
                         bind:visibleState="@{viewModel.emptyViewVisible}"
                         />
+
                     <android.support.v7.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:scrollbars="vertical"
+                        app:hideMenuButton="@{floatActionMenu}"
                         app:layoutManager="LinearLayoutManager"
                         app:recyclerAdapter="@{viewModel.adapter}"
                         app:scrollListenner="@{viewModel.scrollListenner}"
-                        app:hideMenuButton="@{floatActionMenu}"
                         />
 
                     <ProgressBar
@@ -128,6 +108,7 @@
                 app:fab_addButtonPlusIconColor="@color/color_white"
                 app:fab_labelStyle="@style/FloatMenuTitleStyle"
                 >
+
                 <com.getbase.floatingactionbutton.FloatingActionButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

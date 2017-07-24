@@ -13,10 +13,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.android.databinding.library.baseAdapters.BR;
+import com.framgia.fdms.BR;
 import com.framgia.fdms.R;
 import com.framgia.fdms.data.model.Category;
 import com.framgia.fdms.data.model.Device;
+import com.framgia.fdms.data.model.Producer;
 import com.framgia.fdms.data.model.Status;
 import com.framgia.fdms.data.model.User;
 import com.framgia.fdms.screen.devicecreation.CreateDeviceActivity;
@@ -59,6 +60,8 @@ public class ListDeviceViewModel extends BaseObservable
     private boolean mIsBo;
     private int mTab = TAB_MY_DEVICE;
     private int mEmptyViewVisible = View.GONE; // show empty state ui when not data
+    private Producer mVendor, mMaker;
+    private boolean mIsTopSheetExpand;
 
     public ObservableBoolean getIsLoadingMore() {
         return mIsLoadingMore;
@@ -80,6 +83,10 @@ public class ListDeviceViewModel extends BaseObservable
         mAdapter = new ListDeviceAdapter(mContext, new ArrayList<Device>(), this);
         setCategory(new Category(OUT_OF_INDEX, mContext.getString(R.string.title_btn_category)));
         setStatus(new Status(OUT_OF_INDEX, mContext.getString(R.string.title_request_status)));
+        setVendor(new Producer());
+        mVendor.setName(mContext.getString(R.string.title_vendor));
+        setMaker(new Producer());
+        mMaker.setName(mContext.getString(R.string.title_maker));
         mTab = tabDevice;
     }
 
@@ -147,6 +154,14 @@ public class ListDeviceViewModel extends BaseObservable
         mFragment.startActivityForResult(
             StatusSelectionActivity.getInstance(mContext, null, mStatuses,
                 StatusSelectionType.STATUS), REQUEST_SELECTION);
+    }
+
+    @Override
+    public void onChooseMaker() {
+    }
+
+    @Override
+    public void onChooseVendor() {
     }
 
     @Override
@@ -364,6 +379,44 @@ public class ListDeviceViewModel extends BaseObservable
     public void setEmptyViewVisible(int emptyViewVisible) {
         mEmptyViewVisible = emptyViewVisible;
         notifyPropertyChanged(BR.emptyViewVisible);
+    }
+
+    public ListDeviceFragment getFragment() {
+        return mFragment;
+    }
+
+    public void setFragment(ListDeviceFragment fragment) {
+        mFragment = fragment;
+    }
+
+    @Bindable
+    public Producer getVendor() {
+        return mVendor;
+    }
+
+    public void setVendor(Producer vendor) {
+        mVendor = vendor;
+        notifyPropertyChanged(BR.vendor);
+    }
+
+    @Bindable
+    public Producer getMaker() {
+        return mMaker;
+    }
+
+    public void setMaker(Producer maker) {
+        mMaker = maker;
+        notifyPropertyChanged(BR.maker);
+    }
+
+    @Bindable
+    public boolean isTopSheetExpand() {
+        return mIsTopSheetExpand;
+    }
+
+    public void setTopSheetExpand(boolean topSheetExpand) {
+        mIsTopSheetExpand = topSheetExpand;
+        notifyPropertyChanged(BR.topSheetExpand);
     }
 
     @Override
