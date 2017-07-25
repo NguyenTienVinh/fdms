@@ -78,7 +78,7 @@ public class DeviceViewModel extends BaseObservable
     @Override
     public void setTabWithDevice(int tab, Device device) {
         setTab(tab);
-        ((ListDeviceFragment)mAdapter.getItem(tab)).getDataWithDevice(device);
+        ((ListDeviceFragment) mAdapter.getItem(tab)).getDataWithDevice(device);
     }
 
     @Override
