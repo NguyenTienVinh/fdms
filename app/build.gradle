@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 /**
  * start config and check ci*/
@@ -35,6 +36,17 @@ repositories {
     mavenCentral()
     maven { url "http://maven.aspose.com/artifactory/ext-release-local/" }
     jcenter()
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
 }
 
 dependencies {
@@ -70,4 +82,7 @@ dependencies {
     testCompile "org.mockito:mockito-core:2.+"
     testCompile 'junit:junit:4.12'
     androidTestCompile "org.mockito:mockito-android:+"
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
 }

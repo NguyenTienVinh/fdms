@@ -4,8 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.crashlytics.android.Crashlytics;
 import com.framgia.fdms.data.model.Device;
 import com.framgia.fdms.data.source.api.service.FDMSServiceClient;
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Age on 4/3/2017.
@@ -17,6 +19,7 @@ public class FDMSApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         FDMSServiceClient.initialize(this);
         sInstant = this;
     }
