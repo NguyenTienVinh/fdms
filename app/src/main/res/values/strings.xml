@@ -17,6 +17,7 @@
     <string name="action_register">Register</string>
     <string name="action_sign_up">Sign Up for FDMS</string>
     <string name="msg_notice_progress">This function is in progress!</string>
+    <string name="title_meeting_room_name">Meeting Room\'s Name</string>
     <string name="title_device_app">Device</string>
     <string name="menu_search">Search</string>
     <string name="msg_sort_by_date">Sorted by date</string>
